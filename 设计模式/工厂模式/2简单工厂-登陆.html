@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			// 警示框
+			var LoginAlert = function(text){
+				this.content = text;
+			}
+			LoginAlert.prototype.show = function(){}
+			var userNameAlert = new LoginAlert('用户名不能多于16个字母或数字');
+			userNameAlert.show();
+			
+			// 确认框
+			var LoginConfirm = function(text){
+				this.content = text;
+			}
+			LoginConfirm.prototype.show = function(){}
+			
+			// 提示框
+			var LoginPrompt = function(text){
+				this.content = text;
+			}
+			LoginPrompt.prototype.show = function(){}
+			
+			// 上面的登录模块如果需要给注册页使用，每次创建时还要找到对应的类，还有前缀也不太好
+			// 所以使用简单的工厂模式，记住工厂函数就可以，不再关注对象到底依赖于哪个基类
+		
+			// 简单工厂
+			var PopFactory = function(){
+				switch (name){
+					case 'alert':
+						return new LoginAlert();
+					case 'confirm':
+						return new LoginConfirm();
+					case 'prompt':
+						return new Tennis();
+				}
+			}
+			
+			// 进一步抽象出共用的地方，可以这样创建
+			function createPop(type, text){
+				// 创建一个对象，并对对象拓展属性和方法
+				var o = new Object();
+				o.content = text;
+				o.show = function(){
+					// 显示方法
+				}
+				if(type=='alert'){// 警示框差异部分
+				}
+				if(type=='prompt'){// 提示框差异部分
+				}
+				if(type=='prompt'){// 确认框差异部分
+				}
+				// 将对象返回
+				return o;
+			}
+			// 创建警示框
+			var userNameAlert = createPop('alert', '用户名只能是26个字母和数字')
+			
+		</script>
+	</body>
+</html>

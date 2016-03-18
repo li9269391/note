@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script src="Observer.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var Student = function (result){
+				var that = this;
+				this.result = result;
+				// 通过this添加的方法或属性都是自身拥有的
+				// 这个方法要传入到Observer对象，不能写入prototype
+				this.say = function(){
+					console.log(that.result);
+				}
+			}
+			Student.prototype = {
+				answer : function (question){
+					Observer.regist(question, this.say);
+				},
+				sleep : function (question){
+					console.log(this.result + " " + question + "已被注销");
+					Observer.remove(question, this.say);
+				}
+			}
+			var Tearcher = function(){
+				
+			}
+			// 老师提问问题的方法
+			Tearcher.prototype.ask = function (question){
+				console.log('问题是：' + question);
+				// 发布提问消息
+				Observer.fire(question);
+			}
+			
+			// 类创建好了，下面创建实例
+			var student1 = new Student('学生1 回答问题'),
+				student2 = new Student('学生2 回答问题'),
+				student3 = new Student('学生3 回答问题');
+				
+			student1.answer('什么是设计模式');
+			student1.answer('简述观察者模式');
+			student2.answer('什么是设计模式');
+			// 学生3订阅（监听）2个问题
+			student3.answer('什么是设计模式');
+			student3.answer('简述观察者模式');
+			// 后面学生3又睡着了，所以注销了一个模式
+			student3.sleep('简述观察者模式');
+				
+			var teacher = new Tearcher();
+			teacher.ask('什么是设计模式');
+			teacher.ask('简述观察者模式');
+		
+		</script>
+	</body>
+</html>

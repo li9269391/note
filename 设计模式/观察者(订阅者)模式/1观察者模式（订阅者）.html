@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script src="Observer.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			// 测试 
+			/*Observer.regist('test', function(e){
+				console.log(e.type, e.args.msg);
+			});
+			Observer.fire('test', {msg: '传递参数'});*/
+			
+			// 实例
+			function $(id){
+				return document.getElementById(id);
+			}
+			// 工程师 A
+			(function(){
+				// 追加一则消息
+				function addMsgItem(e){
+					var text = e.args.text,
+						ul = $('msg'),
+						li = document.createElement('li'),
+						span = document.createElement('span');
+					li.innerHTML = text;
+					// 关闭按钮
+					span.onclick = function(){
+						ul.removeChild(li);
+						Observer.fire('removeCommentMessage', {
+							num : -1
+						});
+					}
+					// 添加删除按钮
+					li.appendChild(span);
+					// 添加留言节点
+					ul.appendChild(li);
+				}
+				// 注册添加评论信息
+				Observer.regist('addCommentMessage', addMsgItem);
+			})();
+			
+			// 工程师 B
+			(function (){
+				// 更改用户消息数目
+				function changeMsgNum(e){
+					// 获取需要增加的用户消息数目
+					var num = e.args.num;
+					$('msg_num').innerHTML = parseInt($('msg_num').innerHTML) + num;
+				}
+				// 注册添加评论信息
+				Observer.regist('addCommentMessage', changeMsgNum)
+						.regist('removeCommentMessage'), changeMsgNum);
+						
+			})();
+			
+			// 工程师 C
+			(function(){
+				// 用户点击提交按钮
+				$('user_submit').onclick = function(){
+					var text = $(user_input);
+					if(text.value === ''){
+						return;
+					}
+					Observer.fire('addCommentMessage', {
+						text : text.value,	// 消息评论内容
+						num : 1				// 消息评论数目
+					})
+					text.value = '';
+				}
+			})()
+		</script>
+	</body>
+</html>

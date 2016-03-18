@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 更安全的工厂方法模式
+			var Factory = function(type, content){
+				if(this instanceof Factory){
+					var s = new this[type](content);
+					return s;
+				}else{
+					return new Factory(type, content);
+				}
+			}
+			// 工厂原型中设置创建所有类型数据对象的基类
+			Factory.prototype = {
+				Java : function(content){
+					//
+				},
+				JavaScript : function(content){
+					//
+				},
+				UI : function(content){
+					this.content = content;
+					(function(content){
+						var div = document.createElement('div');
+						div.innerHTML = content;
+						div.style.border = '1px solid red';
+						document.getElementById('container').appendChild(div);
+					})(content);
+				},
+				PHP : function(content){
+					//
+				}
+			}
+			// 这样以后想添加其它类时，写在原型里面就可以了
+			// 使用
+			var data = [
+				{type:'JavaScript', content:'JavaScript 哪家强'},
+				{type:'UI', content:'UI 哪家强'},
+				{type:'Java', content:'Java 哪家强'},
+				{type:'Java', content:'Java 哪家强'},
+				{type:'UI', content:'UI 哪家强'},
+				{type:'PHP', content:'PHP 哪家强'}
+			];
+			for (var i = 6; i >= 0; i--) {
+				Factory(data[i].type, data[i].content);
+			}
+		</script>
+	</body>
+</html>

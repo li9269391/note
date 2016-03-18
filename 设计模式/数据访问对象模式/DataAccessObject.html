@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script src="DAO.js" type="text/javascript"></script>
+		<script>
+			var LS = new BaseLocalStorage('LS__');
+			LS.set('a', 'xiao ming', function(){console.log(arguments)});	 // [0, "LS__a", "xiao ming"]
+
+			LS.get('a', function(){console.log(arguments)});	// [0, "xiao ming"]
+			LS.remove('a', function(){console.log(arguments)});	// [0, "xiao ming"]
+			LS.remove('a', function(){console.log(arguments)});	// [1, null]
+			LS.get('a', function(){console.log(arguments)});	// [1, null]
+		</script>
+	</body>
+</html>
