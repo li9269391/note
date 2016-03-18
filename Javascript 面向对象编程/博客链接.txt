@@ -1,0 +1,6 @@
+Javascript 面向对象编程（一）：封装
+http://www.ruanyifeng.com/blog/2010/05/object-oriented_javascript_encapsulation.html
+阮一峰的网络日志
+
+常用的Javascript设计模式
+http://web.jobbole.com/29454/

@@ -1,0 +1,18 @@
+hasOwnProperty()  : 看是不是对象自身下面的属性
+
+constructor :  查看对象的构造函数
+	每个原型都会自动添加constructor属性
+	For in 的时候有些属性是找不到的
+	避免修改construtor属性
+
+instanceof :  运算符
+	对象与构造函数在原型链上是否有关系
+
+toString() :  object上的方法
+	实例：判断类型
+	var s = 'abc';
+	var o = {};
+	var a = []
+	alert( Object.prototype.toString.call(s) );	// '[Object String]'
+	alert( Object.prototype.toString.call(o) );	// '[Object Object]'
+	alert( Object.prototype.toString.call(a) );	// '[Object Array]'

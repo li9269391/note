@@ -1,0 +1,18 @@
+
+function testStype(obj){
+	var str = Object.prototype.toString.call(obj);
+	var type = str.substring(8,str.length-1);
+	return type
+}
+
+var arr = [];
+var arr1 = {};
+var arr2 = 123;
+var arr3 = null;
+
+testStype(arr)	// Array
+testStype(arr1)	// Object
+testStype(arr2)	// Number
+testStype(arr3)	// Null
+
+
