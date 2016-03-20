@@ -104,7 +104,7 @@ function inheritObject(o){
 }
 var book = {
 	name : "jsBook",
-	alikeBook : ["cssBook", "htmlBook"];
+	alikeBook : ["cssBook", "htmlBook"]
 };
 function createBook(obj){
 	var o = new inheritObject(obj);
@@ -231,26 +231,28 @@ penguin.jump();		// 跳跃动作
 //直接用Object.create()生成实例，不需要用到new。
 //目前，各大浏览器的最新版本（包括IE9）都部署了这个方法。如果遇到老式浏览器，可以用下面的代码自行部署。
 if (!Object.create) {
-	Object.create = function (o) {　
-		function F() {}
+	Object.create = function (o){
+		function F() {
+		}
+
 		F.prototype = o;
-		return new F();
-	};　　
+		return new F()
+	}
 }
 //这种方法比"构造函数法"简单，但是不能实现私有属性和私有方法，实例对象之间也不能共享数据，对"类"的模拟不够全面
-　
+
 //极简主义法
 //荷兰程序员Gabor de Mooij提出了一种比Object.create()更好的新方法，
 //他称这种方法为"极简主义法"（minimalist approach）。这也是我推荐的方法。
-var Cat = {　　　　
-	createNew: function () {　　　　　
-		var cat = {};　　　
-		cat.name = "大毛";　　　　
+var Cat = {
+	createNew: function () {
+		var cat = {};
+		cat.name = "大毛";
 		cat.makeSound = function () {
 			alert("喵喵喵");
 		};
 		return cat;
-	}　　
+	}
 };
 
 //继承
@@ -260,7 +262,7 @@ var Animal = {
 		animal.sleep = function() {
 			alert("睡懒觉");
 		};
-		return animal;　
+		return animal;
 	}
 };
 var Cat = {
@@ -269,8 +271,8 @@ var Cat = {
 		cat.name = "大毛";
 		cat.makeSound = function(){ alert("喵喵喵"); };
 		return cat;
-　　　}
-};
+	}
+}
 //在Cat的createNew()方法中，调用Animal的createNew()方法。
 //这样得到的Cat实例，就会同时继承Cat类和Animal类。
 

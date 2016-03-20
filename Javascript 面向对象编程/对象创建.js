@@ -38,7 +38,7 @@ function Person(name, age, job) {
 		}
 	}
 }
-var person = new Person("Nicholas", "29" "software Engineer");
+var person = new Person("Nicholas", "29", "software Engineer");
 person.sayName();		//Nicholas
 
 
