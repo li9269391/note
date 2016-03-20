@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+
+        function addSymbol(str) {
+            var iNum = str.length % 3;
+            var prev = "";
+            var arr = [];
+            var temp = "";
+            var iNow = 0;
+
+            if (iNum !=0) {    //每3位数用符号隔开，从后面起，最后如果不到3位的先截取出来，再做连接
+                prev = str.substring(0,iNum);
+                arr.push(prev);
+            }
+
+            str = str.substring(iNum);  //不包括多出的，这样可以每3位加一个符号
+
+            for (var i = 0; i < str.length; i++) {
+                iNow++;
+                temp += str[i]
+                if (iNow == 3 && temp) {
+                    arr.push(temp);
+                    temp = "";
+                    iNow = 0;
+                }
+            }
+
+            return arr.join(",");
+        }
+
+        alert(addSymbol("1234567.89"));    //不能识别后面有小数的
+
+
+        function CommaFormatted(str) {
+
+            //return str.replace(/(?=(?!\b)(\d{3})+(\.\d*)?$)/g, '$&,');
+
+            return str.replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
+
+        }
+        alert(CommaFormatted("1234567.89"));
+        //alert(CommaFormatted("123456"));
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        function GetBytes(str) {
+            var len = str.length;
+            var bytes = len;
+            for (var i = 0; i < len; i++) {
+                if (str.charCodeAt(i) > 255) {
+                    bytes++;
+                }
+            }
+            return bytes;
+        }
+
+        alert(GetBytes("你好,as"));
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
