@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+
+        function getNum(str) {
+            var arr = [];
+            var re = /(\d)+/g;
+            str.replace(re,function ($0) {
+                return arr.push($0);
+            })
+            return arr;
+        }
+        alert(getNum("1ab222ab23abcd789aa"));
+    </script>
+</head>
+<body>
+
+</body>
+</html>

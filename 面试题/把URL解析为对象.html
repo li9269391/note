@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        function parseQueryString(url){
+
+            var arr = url.split("?");
+            var obj = {};
+
+            if (arr.length <= 1){
+                return obj;
+            }
+
+            arr = arr[1].split("&");
+            for(var i=0, l=arr.length; i< l;i++){
+                var temp = arr[i].split("=");
+                obj[temp[0]] = temp[1];
+            }
+            return obj;
+        }
+        var url = "http://witmax.cn/index.php?key0=0&key1=1&key2=2";
+        var ps = parseQueryString(url);
+        alert(ps["key1"]);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
