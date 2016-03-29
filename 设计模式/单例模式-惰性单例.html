@@ -6,6 +6,31 @@
 	</head>
 	<body>
 		<script>
+			var mySingleton = function () {
+
+				/* 这里声明私有变量和方法 */
+				var privateVariable = 'something private';
+				function showPrivate() {
+					console.log(privateVariable);
+				}
+
+				/* 公有变量和方法（可以访问私有变量和方法） */
+				return {
+					publicMethod: function () {
+						showPrivate();
+					},
+					publicVar: 'the public can see this!'
+				};
+			};
+
+			var single = mySingleton();
+			single.publicMethod();  // 输出 'something private'
+			console.log(single.publicVar); // 输出 'the public can see this!'
+
+			// 上面的代码很不错了，但如果我们想做到只有在使用的时候才初始化，那该如何做呢？
+			// 为了节约资源的目的，我们可以另外一个构造函数里来初始化这些代码，如下：
+			/***********************************************************************/
+
 			// 惰性载入单例
 			var LazySingle = (function(){
 				// 单例实例引用
