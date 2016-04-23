@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>城市的公路——桥接模式</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			/*与建造者模式有点相似*/
+
+			/*多维变量类*/
+
+			// 运动单元
+			function Speed(x, y){
+				this.x = x;
+				this.y = y;
+			}
+			Speed.prototype.run = function (){
+				console.log('运动起来');
+			}
+			// 着色单元
+			function Color(cl){
+				this.color = cl;
+			}
+			Color.prototype.draw = function () {
+				console.log('绘制彩色');
+			}
+			// 说话单元
+			function Speek(wd){
+				this.word = wd;
+			}
+			Speek.prototype.say = function(){
+				console.log('书写字体');
+			}
+
+			/*于是我们想创建一个球类，并且它可以运动，可以着色*/
+			function Ball(x, y, c){
+				this.speed = new Speed(x,y);
+				this.color = new Color(c);
+			}
+			Ball.prototype.init = function(){
+				this.speed.run();
+				this.color.draw();
+			}
+
+			/*同样我们想创建一个人物类*/
+			function People(x, y, f){
+				this.speed = new Speed(x, y);
+				this.font = new Speek(f);
+			}
+			People.prototype.init = function () {
+				this.speed.run();
+				this.font.say();
+			}
+			/*当我们想实现一个人物时，直接实例化一个人物对象*/
+			var p = new People(10, 12, 16);
+			p.init(); // 运动起来  书写字体
+		</script>
+	</body>
+</html>
