@@ -75,6 +75,8 @@ function SubType(name, age) {
 	SuperType.call(this, name);
 	this.age = age;
 }
+extend(SubType, SuperType);	//调用封装好的继承函数
+// 扩展方法必须在继承函数后面
 SubType.prototype.sayAge = function () {
 	alert(this.age);
 }
@@ -84,7 +86,6 @@ function extend(Child, Parent) {
 	Child.prototype = new F();
 	Child.prototype.constructor = Child;
 }
-extend(SubType, SuperType);	//调用封装好的继承函数
 
 var instance1 = new SubType("Nicholas", 29);
 var instance2 = new SubType("Greg", 27);
@@ -216,11 +217,6 @@ penguin.swim();		// 游泳速度 20
 penguin.run(10);	// 奔跑速度 10
 penguin.jump();		// 跳跃动作
 
-
-//继承总结：
-//拷贝 -- 通用型，适合有new 和无 new 方式
-//类继承 -- 适合有 new 方式
-//原型继承 -- 适合无 new 方式
 
 
 //---------------- 扩展 ----------------------//
