@@ -117,6 +117,27 @@ function createBook(obj){
 	return o;
 }
 
+// 再看看extend是如何组合出来的object + inheritObject
+function object(o){
+	function F(){ };
+	F.prototype = o;
+	return F();
+}
+function inheritObject(Child, Parent){
+	var prototype = object(Parent.prototype);
+	Child.prototype.constructor = Child;
+	Child.prototype = prototype;
+}
+function extend(Child, Parent) {
+	var F = function(){};
+	F.prototype = Parent.prototype;
+	Child.prototype = new F();
+	Child.prototype.constructor = Child;
+}
+
+
+
+
 //-------------非构造函数的继承 -------------//
 //继承方法4 -- 拷贝
 function extendCopy(c, p) {
