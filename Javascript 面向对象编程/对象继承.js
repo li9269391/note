@@ -326,10 +326,11 @@ cat1.makeSound(); // 啦啦啦
 
 
 
-//学习Ferris的方法-----------
-
+/**
+ * 实例化对象时,自动调用initialize函数
+ */
 function SuperType() {
-	this.initialize.apply(this, arguments)
+	this.initialize.apply(this, arguments);
 }
 
 SuperType.prototype = {
