@@ -6,6 +6,7 @@ function SuperClass(){
 }
 function SubClass(){}
 SubClass.prototype = new SuperClass();
+
 var instance1 = new SubClass();
 var instance2 = new SubClass();
 instance1.books.push("d");
@@ -17,9 +18,11 @@ console.log(instance2.books);	// ["a","b","c","d"]
 //了同一个对象，那么任何对Cat.prototype的修改，都会反映到Animal.prototype。
 function Animal(){ }
 Animal.prototype.species = "动物";
+
 function Cat(){}
 Cat.prototype = Animal.prototype;
 Cat.prototype.constructor = Cat;
+
 var cat1 = new Cat();
 alert(cat1.species); // 动物
 Cat.prototype.constructor = Cat;
@@ -27,9 +30,12 @@ Cat.prototype.constructor = Cat;
 alert(Animal.prototype.constructor); // Cat
 
 
-//2组合继承，也叫做伪经典继承（将原型链和借用构造函数继承的组合到一块）（最常用）
-//组合继承是Javascript最常用的继承模式；不过，它也有自己的不足。组合继承最大的问题是无论什么情况下，
-//都会调用两次超类型构造函数：一次是在创建子类型原型的时候，另一次是在子类型构造函数内部。
+/**
+ * 2、组合继承，也叫做伪经典继承（最常用）
+ * 将原型链和借用构造函数继承的组合到一块
+ * 组合继承是Javascript最常用的继承模式；不过，它也有自己的不足。组合继承最大的问题是无论什么情况下，
+ * 都会调用两次超类型构造函数：一次是在创建子类型原型的时候，另一次是在子类型构造函数内部。
+*/
 function SuperType(name) {
 	this.name = name;
 	this.colors = ["red", "blue", "green"];
@@ -57,13 +63,19 @@ alert(instance2.colors);		//"red,blue,green"
 instance2.sayName();		//"cici"
 instance2.sayAge();		//24
 
-
-//3 寄生式继承+原型继承（最优）
-//解决直接继承prototype模式的缺点
-//F是空对象，所以几乎不占内存。
-//这时，修改Cat的prototype对象，就不会影响到Animal的prototype对象。
-//YUI的YAHOO.lang.extend()方法采用了寄生组合继承，从而让这种模式首次出现在了一个应用非常广泛的Javascript库中
-
+/**
+ * 3、 寄生式继承+原型继承（最优）
+ * 解决直接继承prototype模式的缺点
+ * F是空对象，所以几乎不占内存。
+ * 这时，修改Cat的prototype对象，就不会影响到Animal的prototype对象。
+ * YUI的YAHOO.lang.extend()方法采用了寄生组合继承，从而让这种模式首次出现在了一个应用非常广泛的Javascript库中
+*/
+function extend(Child, Parent) {
+	var F = function(){};
+	F.prototype = Parent.prototype;
+	Child.prototype = new F();
+	Child.prototype.constructor = Child;
+}
 function SuperType(name) {
 	this.name = name;
 	this.colors = ["red", "blue", "green"];
@@ -75,16 +87,11 @@ function SubType(name, age) {
 	SuperType.call(this, name);
 	this.age = age;
 }
-extend(SubType, SuperType);	//调用封装好的继承函数
+//调用封装好的继承函数
+extend(SubType, SuperType);
 // 扩展方法必须在继承函数后面
 SubType.prototype.sayAge = function () {
 	alert(this.age);
-}
-function extend(Child, Parent) {
-	var F = function(){};
-	F.prototype = Parent.prototype;
-	Child.prototype = new F();
-	Child.prototype.constructor = Child;
 }
 
 var instance1 = new SubType("Nicholas", 29);
@@ -95,9 +102,11 @@ alert(instance2.colors);  //"red,blue,green"
 instance2.sayName();      //"Greg"
 instance2.sayAge();       //27
 
-// 寄生式继承
-// 其实是对原型继承的第二次封装
-// 像寄生虫一样寄托于某个对象内部生长
+/**
+ *  4、寄生式继承
+ * 其实是对原型继承的第二次封装
+ * 像寄生虫一样寄托于某个对象内部生长
+ */
 function inheritObject(o){
 	function F(){ };
 	F.prototype = o;
@@ -117,7 +126,7 @@ function createBook(obj){
 	return o;
 }
 
-// 再看看extend是如何组合出来的object + inheritObject
+// 拓展：extend是如何组合出来的object + inheritObject
 function object(o){
 	function F(){ };
 	F.prototype = o;
@@ -128,25 +137,18 @@ function inheritObject(Child, Parent){
 	Child.prototype.constructor = Child;
 	Child.prototype = prototype;
 }
-function extend(Child, Parent) {
-	var F = function(){};
-	F.prototype = Parent.prototype;
-	Child.prototype = new F();
-	Child.prototype.constructor = Child;
-}
 
 
-
-
-//-------------非构造函数的继承 -------------//
-//继承方法4 -- 拷贝
+/**
+ * 5、拷贝继承
+ * 拷贝继续可以用于构造函数和非构造
+ */
+// 浅拷贝
 function extendCopy(c, p) {
 	for (var attr in p) {
 		c[attr] = p[attr];
 	}
 }
-
-extendCopy(SubType.prototype, SuperType.prototype);
 
 //但是，这样的拷贝有一个问题。那就是，如果父对象的属性等于数组或另一个对象，
 //那么实际上，子对象获得的只是一个内存地址，而不是真正拷贝，因此存在父对象被篡改的可能。
@@ -167,16 +169,91 @@ function deepCopy(p, c) {
 }
 
 
-//第二种方法：
-//还可以通过JSON拷贝，IE7以下需要加载json2.js才兼容
-function extendCopy(p) {
-	var str = JSON.stringify(p);
-	c = JSON.parse(str);
-	return c;
+// 还有一种多对象继承(浅复制)
+function prototypeExtend(){
+	var F = function(){},
+		i = 0,
+		len = arguments.length,
+		arg;
+	for (; i < len; i++) {
+		arg = arguments[i];
+		for (var property in arg) {
+			F.prototype[property] = arg[property];
+		}
+	}
+	return new F();
 }
 
-// 最后一个多继承
-// 为了方便可以直接绑定到原生对象
+/**
+ * 非构造函数测试用例
+*/
+var penguin = prototypeExtend({
+	speed : 20,
+	swim : function(){
+		console.log('游泳速度 ' + this.speed);
+	}
+},{
+	run : function(){
+		console.log('奔跑速度 ' + this.speed);
+	}
+},{
+	jump : function(){
+		console.log('跳跃动作');
+	}
+})
+// 通过prototypeExtend创建的是一个对象，无需再用new去创建新的实例对象
+penguin.swim();		// 游泳速度 20
+penguin.run(10);	// 奔跑速度 10
+penguin.jump();		// 跳跃动作
+
+/**
+ * 构造函数测试用例
+ */
+function mixExtend(){
+	var i = 1,						// 从第二个参数起为被继承的对象
+		len = arguments.length,
+		target = arguments[0],		// 第一个对象为目标对象
+		arg;
+	for(; i < len; i++){
+		arg = arguments[i];
+		for(var property in arg){
+			target[property] = arg[property];
+		}
+	}
+	return target;
+}
+
+// 运动单元
+function Speed(x, y){
+	this.x = x;
+	this.y = y;
+}
+Speed.prototype.run = function (){
+	console.log('运动起来');
+}
+// 说话单元
+function Speek(wd){
+	this.word = wd;
+}
+Speek.prototype.say = function(){
+	console.log('书写字体');
+}
+// 人物类
+function People(x, y, f) {
+	Speed.call(this,x,y);
+	Speek.call(this,f);
+}
+mixExtend(People.prototype, Speed.prototype,Speek.prototype); // 对原型拷贝
+People.prototype.init = function(){
+	this.run();
+	this.say();
+}
+// 实例化一个人物
+var p = new People(10,12,16);
+p.init(); // 运动起来 书写字体
+
+
+// 为了方便可以直接绑定到原生对象,要特别注意，会影响其它对象都拥有mix方法
 Object.prototype.mix = function(){
 	var i = 0,
 		len = arguments.length,
@@ -205,40 +282,14 @@ var anotherBook = {
 anotherBook.mix(book1, book2);
 console.log(anotherBook);	//alike:["c", "d"],color:"blue",name:"B"
 
-// 还有一种多对象(浅复制)
-function prototypeExtend(){
-	var F = function(){},
-		args = arguments,
-		i = 0,
-		len = args.length;
-	for (; i < len; i++) {
-		for (var j in args[i]) {
-			F.prototype[j] = args[i][j];
-		}
-	}
-	return new F();
+
+//第二种方法：
+//还可以通过JSON拷贝，IE7以下需要加载json2.js才兼容
+function extendCopy(p) {
+	var str = JSON.stringify(p);
+	c = JSON.parse(str);
+	return c;
 }
-// 测试用例
-var penguin = prototypeExtend({
-	speed : 20,
-	swim : function(){
-		console.log('游泳速度 ' + this.speed);
-	}
-},{
-	run : function(){
-		console.log('奔跑速度 ' + speed);
-	}
-},{
-	jump : function(){
-		console.log('跳跃动作');
-	}
-})
-// 通过prototypeExtend创建的是一个对象，无需再用new去创建新的实例对象
-penguin.swim();		// 游泳速度 20
-penguin.run(10);	// 奔跑速度 10
-penguin.jump();		// 跳跃动作
-
-
 
 //---------------- 扩展 ----------------------//
 
