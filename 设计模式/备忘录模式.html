@@ -2,58 +2,43 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>备忘录模式——缓存数据</title>
 	</head>
 	<body>
 		<script>
-			var mySingleton = function () {
-
-				/* 这里声明私有变量和方法 */
-				var privateVariable = 'something private';
-				function showPrivate() {
-					console.log(privateVariable);
-				}
-
-				/* 公有变量和方法（可以访问私有变量和方法） */
-				return {
-					publicMethod: function () {
-						showPrivate();
-					},
-					publicVar: 'the public can see this!'
-				};
-			};
-
-			var single = mySingleton();
-			single.publicMethod();  // 输出 'something private'
-			console.log(single.publicVar); // 输出 'the public can see this!'
-
-			// 上面的代码很不错了，但如果我们想做到只有在使用的时候才初始化，那该如何做呢？
-			// 为了节约资源的目的，我们可以另外一个构造函数里来初始化这些代码，如下：
-			/***********************************************************************/
-
-			// 惰性载入单例
-			var LazySingle = (function(){
-				// 单例实例引用
-				var _instance = null;
-				// 单例
-				function Single(){
-					/*这里定义私有属性和方法*/
-					return {
-						publicMethod : function(){},
-						publicPerty : '1.0'
+			// Page 备忘录类
+			var Page = function(){
+				// 信息缓存对象
+				var cache = {};
+				/**
+				 * 主函数
+				 * 参数 page 页码
+				 * 参数 fn 成功回调函数
+				 */
+				return function(page,fn){
+					if(cache[page]){
+						// 从缓存中获取数据，恢复到该页状态，显示出来
+						showPage(page, cache[page]);
+						fn && fn();
+					} else {
+						$.post('./data/getNewsData.php',{
+							page: page
+						},function(result){
+							if(result.errNo === 0 ){
+								showPage(page, result.data);
+								// 将该页数据种入缓存中
+								cache[page] = result.data;
+								fn && fn();
+							} else {
+								// 处理异常
+							}
+						})
 					}
 				}
-				// 获取单例对象接口
-				return function(){
-					// 如果为创建单例将创建单
-					if(!_instance){
-						_instance = Single();
-					}
-					// 返回单例
-					return _instance;
-				}
-			})();
-			console.log(LazySingle().publicPerty); // 1.0
+			}();
+			function showPage(page, data){
+				//
+			}
 		</script>
 	</body>
 </html>
