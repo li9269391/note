@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>闭包与高阶函数</title>
+	</head>
+	<body>
+		<script>
+			// 1、函数节流
+			var throttle = function(fn, interval){
+				var _self = fn,	// 保存需要被延迟执行的函数引用
+					timer,		// 定时器
+					firsTime = true;	// 是否第一次调用
+				return function(){
+					var args = arguments,
+						_me = this;
+					if(firsTime){
+						_self.apply(_me, args);
+					}
+					if(timer){	// 如果定时器还在，说明前一次延迟执行还没有完成
+						return false;
+					}
+					timer = setTimeout(function(){	// 延迟一段时间执行
+						setTimeout(timer);
+						timer = null;
+						_self.apply(_me, args);
+					}, interval || 500);
+				};
+			};
+
+			window.onresize = throttle(function(){
+				console.log(1);
+			}, 500);
+		</script>
+	</body>
+</html>
