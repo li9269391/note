@@ -3,61 +3,119 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <style>
+        .animated {
+          -webkit-animation-duration: 3s;
+                  animation-duration: 3s;
+          -webkit-animation-fill-mode: both;
+                  animation-fill-mode: both;
+        }
+        .running {
+          -webkit-animation-play-state: running;
+                  animation-play-state: running;
+        }
+        .stop {
+          -webkit-animation-play-state: paused;
+                  animation-play-state: paused;
+        }
+        .animated.infinite {
+          -webkit-animation-iteration-count: infinite;
+                  animation-iteration-count: infinite;
+        }
+        .animated.linear {
+          -webkit-animation-timing-function: linear;
+                  animation-timing-function: linear;
+        }
+        @-webkit-keyframes rotate {
+          from {
+            -webkit-transform: rotate(0deg);
+                    transform: rotate(0deg);
+          }
+          to {
+            -webkit-transform: rotate(360deg);
+                    transform: rotate(360deg);
+          }
+        }
+        @keyframes rotate {
+          from {
+            -webkit-transform: rotate(0deg);
+                    transform: rotate(0deg);
+          }
+          to {
+            -webkit-transform: rotate(360deg);
+                    transform: rotate(360deg);
+          }
+        }
+        .rotate {
+          -webkit-animation-name: rotate;
+                  animation-name: rotate;
+        }
+        .bg-music {
+          position: fixed;
+          width: 48px;
+          height: 48px;
+          top: 20px;
+          right: 20px;
+          overflow: hidden;
+          background: url(images/icon-music.png) no-repeat;
+          background-size: 100% 100%;
+          z-index: 1001;
+        }
+    </style>
 </head>
 <body>
-<script>
-    var bgAudio = new Audio();
-    bgAudio.loadStatus = 'unload';
-    bgAudio.loop = true;
-
-    function loadAudio(audio, url, callback) {
-        audio.src = url;
-        audio.load();
-        audio.addEventListener('canplay', function() {
-            bgAudio.loadStatus = 'loaded';
-            callback();
-        });
-        audio.addEventListener('loadstart', function() {
-            bgAudio.loadStatus = 'loading';
-        });
-    }
-
-    function playAudio() {
-        if (bgAudio.loadStatus === 'unload') {
-            loadAudio(bgAudio, 'media/bg.mp3', function() {
-                playAudio();
+    <span class="bg-music animated infinite rotate" id="btnMusic"></span>
+    
+    <script>
+        var bgAudio = new Audio();
+        bgAudio.loadStatus = 'unload';
+        bgAudio.loop = true;
+        function loadAudio(audio, url, callback) {
+            audio.src = url;
+            audio.load();
+            audio.addEventListener('canplay', function() {
+                bgAudio.loadStatus = 'loaded';
+                callback();
             });
-            return 1;
+            audio.addEventListener('loadstart', function() {
+                bgAudio.loadStatus = 'loading';
+            });
         }
-        bgAudio.play();
-    }
-
-    function stopAudio() {
-        bgAudio.pause();
-    }
-    bgAudio.addEventListener('playing', function(e) {
-        $('#music .music-btn').addClass('play');
-    });
-    bgAudio.addEventListener('pause', function(e) {
-        $('#music .music-btn').removeClass('play');
-    });
-    $('body').one('touchstart', function() {
-        playAudio();
-        $('#music').on('touchstart', function(e) {
-            if (bgAudio.paused) {
-                playAudio();
-                return 0;
+        function playAudio() {
+            if (bgAudio.loadStatus === 'unload') {
+                loadAudio(bgAudio, 'media/bg.mp3', function() {
+                    playAudio();
+                });
+                return 1;
             }
-            stopAudio();
-            return 1;
-        });
-    });
-    window.onload = function() {
-        if (bgAudio.loadStatus !== 'unload') {
-            return;
+            bgAudio.play();
         }
-        playAudio();
-    };
-</script>
+        function stopAudio() {
+            bgAudio.pause();
+        }
+        bgAudio.addEventListener('playing', function(e) {
+            $('#btnMusic').removeClass('stop').addClass('runing rotate');
+        });
+        bgAudio.addEventListener('pause', function(e) {
+            $('#btnMusic').removeClass('running rotate').addClass('stop');
+        });
+        $('body').one('touchstart', function() {
+            playAudio();
+            $('#btnMusic').on('touchstart', function(e) {
+                if (bgAudio.paused) {
+                    playAudio();
+                    return 0;
+                }
+                stopAudio();
+                return 1;
+            });
+        });
+        window.onload = function() {
+            if (bgAudio.loadStatus !== 'unload') {
+                return;
+            }
+            playAudio();
+        };
+    </script>
 </body>
 </html>
