@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>通用的惰性单例</title>
+	</head>
+	<body>
+	<input id="loginBtn" type="button" value="浮窗登录"/>
+	<input id="loginBtn2" type="button" value="iframe登录"/>
+	<script>
+		var getSingle = function(fn){
+			var result;
+			return function(){
+				return result || ( result = fn.apply(this, arguments) );
+			}
+		};
+
+		// 测试用例1
+		var createLoginLayer = function(){
+			var div = document.createElement('div');
+			div.innerHTML = '我是登录浮窗';
+			div.style.display = 'none';
+			document.body.appendChild(div);
+			return div;
+		};
+		var createSingleLoginLayer = getSingle(createLoginLayer);
+		document.getElementById('loginBtn').onclick = function(){
+			var loginLayer = createSingleLoginLayer();
+			loginLayer.style.display = 'block';
+		};
+
+		// 测试用例2
+		var createSingleIframe = getSingle(function(){
+			var iframe = document.createElement('iframe');
+			document.body.appendChild(iframe);
+			return iframe;
+		});
+		document.getElementById('loginBtn2').onclick = function(){
+			var loginLayer = createSingleIframe();
+			loginLayer.src = 'http://baidu.com';
+		}
+	</script>
+
+	<input id="oneClickBtn" type="button" value="oneClickBtn"/>
+	<script>
+		// 在某种场合中，利用getSingle函数，也能达到one事件一样的效果。代码如下：
+		var binEvent = getSingle(function(){
+			document.getElementById('oneClickBtn').onclick = function(){
+				alert('click');
+			}
+			return true;
+		});
+		var render = function(){
+			console.log('开始渲染列表');
+			binEvent();
+		};
+		render();
+		render();
+		render();
+		// render函数和bindEvent函数都分别执行了3次，但div实际上只被绑定了一次事件
+	</script>
+	</body>
+</html>
