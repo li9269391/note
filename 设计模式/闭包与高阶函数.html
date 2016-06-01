@@ -21,7 +21,7 @@
 						return false;
 					}
 					timer = setTimeout(function(){	// 延迟一段时间执行
-						setTimeout(timer);
+						clearTimeout(timer);
 						timer = null;
 						_self.apply(_me, args);
 					}, interval || 500);
