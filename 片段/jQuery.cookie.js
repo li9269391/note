@@ -16,10 +16,7 @@ jQuery.cookie = function(name, value, options) {
 			} else {
 				date = options.expires;
 			}
-			expires = '; expires=' + date.toUTCString(); // use expires
-															// attribute,
-															// max-age is not
-															// supported by IE
+			expires = '; expires=' + date.toUTCString(); // use expires // attribute,// max-age is not // supported by IE
 		}
 		var path = options.path ? '; path=' + options.path : '';
 		var domain = options.domain ? '; domain=' + options.domain : '';
@@ -34,8 +31,7 @@ jQuery.cookie = function(name, value, options) {
 				var cookie = jQuery.trim(cookies[i]);
 				// Does this cookie string begin with the name we want?
 				if (cookie.substring(0, name.length + 1) == (name + '=')) {
-					cookieValue = decodeURIComponent(cookie
-							.substring(name.length + 1));
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
 					break;
 				}
 			}
@@ -66,3 +62,6 @@ function setcookie(cookieName, cookieValue, seconds, path, domain, secure) {
 //	$.cookie('the_cookie', 'the_value', { expires: 7 }); //设置带时间的cookie  7天
 //	$.cookie('the_cookie', '', { expires: -1 }); // 删除
 //	$.cookie('the_cookie', null); // 删除 cookie
+//
+//	设置cookie的名值对，有效期，路径，域，安全
+//	$.cookie(’name’, ‘value’, {expires: 7, path: ‘/’, domain: ‘jquery.com’, secure: true});
