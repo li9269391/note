@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="email=no"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>label包裹input在iphone下点击文字无法选择</title>
+</head>
+<body>
+
+    <header>多选：</header>
+    <ul>
+        <li>
+            <label>
+                <input type="checkbox" name="checkbox1" value="2">
+                <span>多选一（点击文字无法选择）</span>
+            </label>
+        </li>
+        <li>
+            <label>
+                <input type="checkbox" name="checkbox1" value="3">
+                <span>多选二（点击文字无法选择）</span>
+            </label>
+        </li>
+    </ul>
+    <header>单选：</header>
+    <ul>
+        <li>
+            <label>
+                <input type="radio" name="radio1" value="1">
+                <span>单选1（点击文字无法选择）</span>
+            </label>
+        </li>
+        <li>
+            <label class="field-container">
+                <input type="radio" name="radio1" value="2">
+                <span>单选2（点击文字无法选择）</span>
+            </label>
+        </li>
+    </ul>
+
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
+<script src="http://cdn.bootcss.com/fastclick/1.0.6/fastclick.js"></script>
+<script>
+    $(function(){
+        FastClick.attach(document.body);
+    });
+</script>
+
+</body>
+</html>
