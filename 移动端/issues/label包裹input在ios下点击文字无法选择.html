@@ -13,7 +13,10 @@
     <title>label包裹input在iphone下点击文字无法选择</title>
 </head>
 <body>
-    <!--解决方法：给元素添加 needsclick ，让FastClick忽略这个元素-->
+    <!--
+    解决方法：给元素添加 needsclick ，让FastClick忽略这个元素
+    <a class="needsclick">Ignored by FastClick</a>
+    -->
     <header>多选：</header>
     <ul>
         <li>
@@ -34,13 +37,13 @@
         <li>
             <label>
                 <input type="radio" name="radio1" value="1">
-                <span>单选1（点击文字无法选择）</span>
+                <span class="needsclick">单选1（点击文字无法选择）</span>
             </label>
         </li>
         <li>
             <label class="field-container">
                 <input type="radio" name="radio1" value="2">
-                <span>单选2（点击文字无法选择）</span>
+                <span class="needsclick">单选2（点击文字无法选择）</span>
             </label>
         </li>
     </ul>
