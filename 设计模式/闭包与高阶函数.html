@@ -16,6 +16,7 @@
 						_me = this;
 					if(firsTime){
 						_self.apply(_me, args);
+						firsTime = false;
 					}
 					if(timer){	// 如果定时器还在，说明前一次延迟执行还没有完成
 						return false;
