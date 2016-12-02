@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div id="app">
+        <my-component></my-component>
+        <button @click="appclick">appclick</button>
+    </div>
+
+    <script src="//cdn.bootcss.com/vue/2.1.3/vue.js"></script>
+    <!--<script src="//cdn.bootcss.com/vue/1.0.28/vue.js"></script>-->
+    <script>
+
+        var Components = {};
+        var ComponentsLocal = {};
+
+        ComponentsLocal.Child = {
+            data: function(){
+              return {
+                  hello: 'hello word!'
+              }
+            },
+            methods: {
+                handleClick: function(){
+                    alert('你好啊！');
+                }
+            },
+            template: '<div>i am child {{hello}}<button @click="handleClick">点击我试试</button></div>'
+        };
+        Components.Parent = function(resolve, reject){
+            setTimeout(function(){
+                resolve({
+                    template: '<div><c-head></c-head><div>A custom component! </div><br/><child></child><button id="testID">testID</button></div>',
+                    components: {
+                        'child': ComponentsLocal.Child
+                    }
+                })
+            },3000);
+        };
+
+        Components.head = {
+            template: "<div>global head!</div>"
+        };
+
+        Vue.component('c-head', Components.head);
+
+        new Vue({
+            el: '#app',
+            components: {
+                "my-component": Components.Parent
+            },
+            methods:{
+                appclick: function(){
+                    alert("appclick");
+                }
+            },
+            updated: function(){
+                document.getElementById("testID").addEventListener("click", function(){
+                    alert("test!")
+                });
+            }
+        });
+    </script>
+</body>
+</html>
