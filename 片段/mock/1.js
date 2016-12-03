@@ -1,6 +1,6 @@
 var express = require('express'),
-	app     = express(),
-	Mock    = require('mockjs');
+	app = express(),
+	Mock = require('mockjs');
 
 /* 测试 */
 app.post('/test/info', function (req, res) {
@@ -10,7 +10,7 @@ app.post('/test/info', function (req, res) {
 				'id': '@integer(1, 6)',
 				'name': '@cname'
 			}],
-            'msg':'success|error',
+            'msg': 'success|error',
 			'code': '@integer(0, 1)'
 		});
 
