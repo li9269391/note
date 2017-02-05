@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <title>deferred.done demo</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    </head>
+    <body>
+
+    <button>Go</button>
+    <p>Ready...</p>
+
+    <script>
+/*************常用ajax封装**************/
+var ajaxPromise =  function (url, data, params) {
+    var deferred = $.Deferred();
+    var params = params || {};
+    $.ajax({
+        url: url,
+        data: data,
+        type: params.type || 'get',
+        dataType: params.dataType || 'json',
+        success: function(res) {
+            if (res.data == 0) {
+                deferred.resolve(res);
+            } else {
+                alert(res.msg);
+                deferred.reject(res);
+            }
+        },
+        error: function(res) {
+            alert('网络延迟！');
+            deferred.reject(res);
+        }
+    });
+
+    return deferred.promise();
+}
+
+ajaxPromise('url1').then(function (res1) {
+    // url1 成功
+    return $.when(ajaxPromise('url2'), ajaxPromise('url3'))
+}).then(function (res2, res3) {
+    // url2 && url3 都成功
+}).fail(function (res) {
+    // url1 、 url2 、 url3 、其中一个出错
+    console.log(res)
+})
+
+
+/*************示例1*****************/
+var promise1 = $.get(url, {uid:123});
+var promise2 = promise1.then(function(res){
+    // 处理promise1
+    // 继续执行下一个 ajax
+    return $.ajax(url2, { hash: res.hash });
+});
+var promise3 = promise2.then(function(res){
+    // 处理promise2
+    // 继续执行下一个 ajax
+    return $.ajax(url3, { data: res.test });
+});
+promise3.done(function(res){
+    // data retrieved from url3
+});
+
+/*************示例2*****************/
+// 3 functions to call when the Deferred object is resolved
+function fn1() {
+    $( "p" ).append( " 1 " );
+}
+function fn2() {
+    $( "p" ).append( " 2 " );
+}
+function fn3( n ) {
+    $( "p" ).append( n + " 3 " + n );
+}
+
+// Create a deferred object
+var dfd = $.Deferred();
+
+// Add handlers to be called when dfd is resolved
+dfd
+// .done() can take any number of functions or arrays of functions
+    .done( [fn1, fn2 ], fn3,  [fn2, fn1] )
+    // We can chain done methods, too
+    .done(function( n ) {
+        $( "p" ).append( n + " we're done." );
+    });
+
+// Resolve the Deferred object when the button is clicked
+$( "button" ).on( "click", function() {
+    dfd.resolve( "and" );
+});
+
+/*************示例3*****************/
+
+var dfd2=$.Deferred();
+dfd2.progress(function(data){
+    console.log(data);
+}).done(function(data){
+    console.log("done:>>>>>"+data);
+}).fail(function(data){
+    console.log("fail:>>>>"+data);
+}).always(function () {
+    console.log('不管三七二十一，总是会执行')
+});
+function getProcess(){
+    dfd2.notify("我是progress回调函数的参数");
+    var a = Math.random() > 0.5 ? 1 : 0;
+    //下面判断是为了执行done还是fail
+    if(a){
+        dfd2.resolve("执行done.....");
+    }else{
+        dfd2.reject("执行fail......");
+    }
+}
+//getProcess()
+
+</script>
+
+</body>
+</html>
