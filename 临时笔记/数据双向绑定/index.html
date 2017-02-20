@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="app">
+    <input type="demo" h-model="demo">
+
+    <p h-text="demo"></p>
+    <p h-text="demo1"></p>
+</div>
+<script src="main.js"></script>
+<script>
+    // test...
+    var vm = Hue({
+        el: '.app',
+        data: {
+            demo: '大轰大轰',
+            demo1: '大轰1大轰1',
+        }
+    });
+    setTimeout(function () {
+        vm.data.demo = 124;//有效
+        vm.data.demo1 = 124;//无效
+    },3000)
+</script>
+</body>
+</html>

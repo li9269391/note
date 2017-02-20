@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>前端路由router</title>
+</head>
+<body>
+    <ul>
+        <li><a href="#blue">blue</a></li>
+        <li><a href="#yellow">yellow</a></li>
+        <li><a href="#red">red</a></li>
+    </ul>
+    <script>
+        // router.js
+        function FrontRouter() {
+            this.routes = {};
+            window.addEventListener('load', this.resolve.bind(this), false);
+            window.addEventListener('hashchange', this.resolve.bind(this), false);
+        }
+        FrontRouter.prototype.route = function (path, callback) {
+            this.routes[path] = callback || function () {};
+        }
+        FrontRouter.prototype.resolve = function () {
+            this.curHash = location.hash.slice(1) || '/';
+            typeof this.routes[this.curHash] === 'function' && this.routes[this.curHash]();
+        }
+
+        // index.js
+        var router = new FrontRouter();
+        router.route('blue', function () {
+            document.body.style.backgroundColor = 'blue';
+        })
+        router.route('yellow', function () {
+            document.body.style.backgroundColor = 'yellow';
+        })
+        router.route('red', function () {
+            document.body.style.backgroundColor = 'red';
+        })
+    </script>
+</body>
+</html>
