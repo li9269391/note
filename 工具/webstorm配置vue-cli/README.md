@@ -28,7 +28,7 @@ WebStorm配置
             我们在测试webpack功能的时候(例如写插件)需要单步执行命令，这时候就需要进行一下配置
 
             1.
-                ![webstorm-config-add-debug-config-step-1](https://github.com/li9269391/note/blob/master/%E5%B7%A5%E5%85%B7/webstorm%E9%85%8D%E7%BD%AEvue-cli/img/webstorm-config-add-debug-config-step-1.png?raw=true)
+![webstorm-config-add-debug-config-step-1](https://github.com/li9269391/note/blob/master/%E5%B7%A5%E5%85%B7/webstorm%E9%85%8D%E7%BD%AEvue-cli/img/webstorm-config-add-debug-config-step-1.png?raw=true)
 
             2.
                 ![webstorm-config-add-debug-config-step-2](./img/webstorm-config-add-debug-config-step-2.png)
