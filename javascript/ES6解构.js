@@ -21,6 +21,10 @@ move2({}); //undefined undefined
 move2(); //0 0
 move2({z:3})//undefined undefined
 
+/*通过结果可以看出，采用{x=0,y=0} =  {}的形式，无论怎么传参，都能保证x，y的默认值是0，
+但是采用{x,y} = {x:0,y:0}的形式，如果传入的参数值不是undefined，那么将不能有效保证函数参数默认值是0，
+这里需要仔细区分两者的不同。*/
+
 ////////数组解构
 
 function f3([ x, y, ...z], ...w) {
