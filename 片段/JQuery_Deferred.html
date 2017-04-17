@@ -21,10 +21,9 @@ var ajaxPromise =  function (url, data, params) {
         type: params.type || 'get',
         dataType: params.dataType || 'json',
         success: function(res) {
-            if (res.data == 0) {
+            if (res.code == 0) {
                 deferred.resolve(res);
             } else {
-                alert(res.msg);
                 deferred.reject(res);
             }
         },
