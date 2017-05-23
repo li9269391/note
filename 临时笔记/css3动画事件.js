@@ -1,3 +1,5 @@
+// 来源：http://wnworld.com/archives/191.html
+
 /**
  * 处理css3 transitionend和animationend动画事件
  * 1、addTranEvent(elem,fn,duration)：用于绑定transtionend事件，处理掉多次执行的问题
@@ -100,3 +102,62 @@
     WN.animationEnd=animationEnd;
     return WN;
 });
+
+
+// 例：
+// 1 transitionend事件
+function callback(){
+    $text.html("动画结束啦！只执行了一次transitioned")
+}	
+$movebtn.on("click",function(){
+    $text.html("");
+    $movebox.addClass("moving");
+    WN.addTranEvent($movebox.get(0),callback,1);
+});
+$resetbtn.on("click",function(){
+    $text.html("");
+    $movebox.removeClass("moving");
+    WN.addTranEvent($movebox.get(0),callback,1);
+});
+
+
+// 2 animationend事件
+function callback(){
+    $text.html("animation结束啦！")
+}
+WN.addAnimEvent($movebox.get(0),callback);
+$movebtn.on("click",function(){
+    $text.html("");
+    $movebox.addClass('moving');	
+});
+$resetbtn.on("click",function(){
+    $text.html("");
+    $movebox.removeClass("moving");
+});
+$delbtn.on("click",function(){
+    alert("删除动画事件成功,动画结束后就不会触发任何函数！")
+    WN.removeAnimEvent($movebox.get(0),callback);
+});
+$reevent.on("click",function(){
+    WN.addAnimEvent($movebox.get(0),callback);
+    alert("恢复动画事件成功,动画结束后就会触发函数！")
+})
+
+
+// 3 设置transfrom,transitionDuration的css3属性让元素运动起来
+$movebtn.on("click",function(){
+    WN.setStyleAttribute($movebox.get(0),{
+        transitionProperty:"all",
+        transitionDuration:"1s",
+        width:"125px",
+        transform:"translate(75px,75px) rotate(45deg) skew(10deg,10deg)"
+    })
+});
+$resetbtn.on("click",function(){
+    WN.setStyleAttribute($movebox.get(0),{
+        transitionProperty:"all",
+        transitionDuration:"1s",
+        width:"",
+        transform:""
+    })
+})
