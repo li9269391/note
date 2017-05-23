@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue2 模板中的图片地址如何使用 webpack 定义的别名</title>
+</head>
+<body>
+<template>
+    <img src="~assets/images/logo.jpg" />
+</template>
+<script>
+    // webpack 别名配置
+    {
+        alias: {
+            'src': path.resolve(__dirname, '../src'),
+            'assets': path.resolve(__dirname, '../src/assets'),
+            'components': path.resolve(__dirname, '../src/components')
+        }
+    }
+</script>
+<script>
+    import 'assets/css/style.css'
+</script>
+<style>
+    .logo {
+        background: url(~asset/images/bg.jpg)
+    }
+</style>
+意思就是: 告诉加载器它是一个模块，而不是相对路径
+注意: 只有在template中的静态文件地址和style中的静态文件地址需要加~, 在script里的, 别名定义成什么就写什么.
+
+</body>
+</html>
