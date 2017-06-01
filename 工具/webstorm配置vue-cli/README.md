@@ -39,4 +39,7 @@ WebStorm支持对node.js自带的库函数进行提示,在设置中搜索`coding
 
 ![webstorm-config-enable-coding-assistance](./img/webstorm-config-enable-coding-assistance.png)
 
-   
+6.  忽略node_modules目录
+editor -> File Types -> Ignore files and folders
+![webstorm-config-ignore_node_modules](./img/webstorm-config-ignore_node_modules.png)
+如上图所示添加node_modules目录到忽略文件列表里面，点击应用就可以了。
