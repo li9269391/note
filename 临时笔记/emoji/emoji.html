@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>emoji</title>
+    <style>
+        body{
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<textarea name="" id="content" cols="30" rows="10">这是一段emoji\uD83C\uDF45\uD83C\uDF46\uD83C\uDF46\uD83D\uDC69\u200D\u2764\uFE0F\u200D\uD83D\uDC69。可以显示？</textarea>
+<div id="box"></div>
+<button id="btnShow">btnShow</button>
+<script>
+    var staticUrl = './';
+</script>
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="./js/emoji/emoji-data.js"></script>
+<script src="./js/emoji/facemap.js"></script>
+<script src="./js/emoji/emoji.js"></script>
+<script>
+    var source = '这是一段emoji\uD83C\uDF45\uD83C\uDF46\uD83C\uDF46\uD83D\uDC69\u200D\u2764\uFE0F\u200D\uD83D\uDC69。可以显示？';
+    $('#btnShow').on('click', function () {
+        $('#box').html(WoniuTrip.Emoji.textToImg2(source))
+    })
+</script>
+</body>
+</html>
