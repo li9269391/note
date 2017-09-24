@@ -9,13 +9,16 @@
     <style>
         body{
             font-size: 20px;
+            text-align: justify;
+            word-break: break-all;
         }
     </style>
 </head>
 <body>
-<textarea name="" id="content" cols="30" rows="10">这是一段emoji\uD83C\uDF45\uD83C\uDF46\uD83C\uDF46\uD83D\uDC69\u200D\u2764\uFE0F\u200D\uD83D\uDC69。可以显示？</textarea>
+<p>这是一段emoji\uD83C\uDF45\uD83C\uDF46\uD83C\uDF46\uD83D\uDC69\u200D\u2764\uFE0F\u200D\uD83D\uDC69</p>
+<textarea name="" id="content" cols="30" rows="10"></textarea>
 <div id="box"></div>
-<button id="btnShow">btnShow</button>
+<button id="btnShow">转换成图片</button>
 <script>
     var staticUrl = './';
 </script>
@@ -24,9 +27,10 @@
 <script src="./js/emoji/facemap.js"></script>
 <script src="./js/emoji/emoji.js"></script>
 <script>
-    var source = '这是一段emoji\uD83C\uDF45\uD83C\uDF46\uD83C\uDF46\uD83D\uDC69\u200D\u2764\uFE0F\u200D\uD83D\uDC69。可以显示？';
+    var source = '这是一段emoji\uD83C\uDF45\uD83C\uDF46\uD83C\uDF46\uD83D\uDC69\u200D\u2764\uFE0F\u200D\uD83D\uDC69';
+    $('#content').val(source);
     $('#btnShow').on('click', function () {
-        $('#box').html(WoniuTrip.Emoji.textToImg2(source))
+        $('#box').html(WoniuTrip.Emoji.textToImg2($('#content').val()))
     })
 </script>
 </body>
