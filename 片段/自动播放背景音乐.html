@@ -5,50 +5,32 @@
     <title></title>
     <style>
         .animated {
-          -webkit-animation-duration: 3s;
-                  animation-duration: 3s;
-          -webkit-animation-fill-mode: both;
-                  animation-fill-mode: both;
+            animation-duration: 3s;
+            animation-fill-mode: both;
         }
         .running {
-          -webkit-animation-play-state: running;
-                  animation-play-state: running;
+            animation-play-state: running;
         }
         .stop {
-          -webkit-animation-play-state: paused;
-                  animation-play-state: paused;
+            animation-play-state: paused;
         }
         .animated.infinite {
-          -webkit-animation-iteration-count: infinite;
-                  animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
         }
         .animated.linear {
-          -webkit-animation-timing-function: linear;
-                  animation-timing-function: linear;
+            animation-timing-function: linear;
         }
-        @-webkit-keyframes rotate {
-          from {
-            -webkit-transform: rotate(0deg);
-                    transform: rotate(0deg);
-          }
-          to {
-            -webkit-transform: rotate(360deg);
-                    transform: rotate(360deg);
-          }
-        }
+      
         @keyframes rotate {
           from {
-            -webkit-transform: rotate(0deg);
-                    transform: rotate(0deg);
+              transform: rotate(0deg);
           }
           to {
-            -webkit-transform: rotate(360deg);
-                    transform: rotate(360deg);
+              transform: rotate(360deg);
           }
         }
         .rotate {
-          -webkit-animation-name: rotate;
-                  animation-name: rotate;
+            animation-name: rotate;
         }
         .bg-music {
           position: fixed;
@@ -60,6 +42,10 @@
           background: url(images/icon-music.png) no-repeat;
           background-size: 100% 100%;
           z-index: 1001;
+        }
+        .bg-music.stop {
+            background: url("images/btn_music_off.png") no-repeat;
+            background-size: 100% 100%;
         }
     </style>
 </head>

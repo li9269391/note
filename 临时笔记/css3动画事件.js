@@ -2,9 +2,9 @@
 
 /**
  * 处理css3 transitionend和animationend动画事件
- * 1、addTranEvent(elem,fn,duration)：用于绑定transtionend事件，处理掉多次执行的问题
- * 2、addAnimEvent(elem,fn),removeAnimEvent(elem,fn)：分别用于绑定和解绑animationend事件
- * 3、setStyleAttribute(elem,val)：用于设置css3的属性
+ * 1、WN.addTranEvent(elem,fn,duration)：用于绑定transtionend事件，处理掉多次执行的问题
+ * 2、WN.addAnimEvent(elem,fn),removeAnimEvent(elem,fn)：分别用于绑定和解绑animationend事件
+ * 3、WN.setStyleAttribute(elem,val)：用于设置css3的属性
  */
 (function (root, factory) {
     if (typeof define === 'function') {
