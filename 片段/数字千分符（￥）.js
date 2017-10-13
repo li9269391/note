@@ -6,8 +6,7 @@ Number.prototype.CommaFormatted = function(n,symbol) {
 
 // 格式化千分符
 function CommaFormatted(str,symbol) {
-	var symbol = symbol || "￥";
-    return str.replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
+    return (symbol || '\uffe5') + str.replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
 }
 jQuery('.format-txt').each(function(){
     var txt = CommaFormatted(jQuery(this).text());
