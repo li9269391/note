@@ -38,6 +38,15 @@
                 return typeof (m[0].split(r1)[1]) === 'undefined' ? '' : decodeURIComponent(m[0].split(r1)[1])
             }
         }
+
+        function replaceQueryParam (url, arg, val) {
+            let pattern = arg + '=([^&]*)';
+            let replaceText = arg + '=' + val;
+            let re = new RegExp(`${arg}=([^&?]*)(\\s||$)`, 'gi');
+            return url.match(pattern) ? url.replace(re, replaceText) : (url.match('[\?]') ? url + '&' + replaceText : url + '?' + replaceText);
+        }
+
+        // 推荐 https://github.com/derek-watson/jsUri
     </script>
 </body>
 </html>
