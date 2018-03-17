@@ -46,3 +46,8 @@ editor -> File Types -> Ignore files and folders
 
 7. deployment 设置远程开发机忽略目录
 Tools->Deployment->configruation->Excluded Path
+
+### 遇到的问题
+deployment 已连接，但无法上传，因为与本地目录不一致
+![1521259073](./img/1521259073.png)
+![1521259050](./img/1521259050.png)
