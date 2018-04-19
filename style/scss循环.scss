@@ -1,0 +1,18 @@
+@for $i from 1 through 5 {
+    $className: $i*10;
+    $classValue: px2rem($className);
+    .m#{$className} {
+        margin: $classValue;
+    }
+    .mt#{$className} {
+        margin-top: $classValue;
+    }
+}
+
+@each $width in 319, 359, 374, 413, 479, 639,749 {
+    @media (min-width: $width+'px') {
+        html {
+            font-size: ($width+1)/15+px;
+        }
+    }
+}
