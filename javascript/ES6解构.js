@@ -28,9 +28,15 @@ move2({z:3})//undefined undefined
 function fetch(url, { body = '', method = 'GET', headers = {} } = {}) {
     console.log(method);
 }
-fetch('//api.mama.cn', {
+fetch('//api.example.cn', {
     method: 'POST'
 })
+
+function foo(x = 5, y = 6) {
+    console.log(x, y);
+}
+foo(undefined, null)
+// 5 null
 
 ////////数组解构
 
