@@ -140,7 +140,7 @@ class BaseLocalStorage {
 // const LS = new BaseLocalStorage('LS__');
 // LS.set('a', 'xiao ming', function (status, key, value) {
 //     console.log(arguments)
-// }, new Date().getTime() + 1000 * 60 * 24); // [0, "LS__a", "xiao ming"]
+// }, new Date().getTime() + 1000 * 60 * 60 * 24); // [0, "LS__a", "xiao ming"]
 // LS.get('a', function(){console.log(arguments)});    // [0, "xiao ming"]
 // LS.remove('a', function(){console.log(arguments)}); // [0, "xiao ming"]
 // LS.remove('a', function(){console.log(arguments)}); // [1, null]
