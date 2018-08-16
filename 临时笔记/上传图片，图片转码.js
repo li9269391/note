@@ -3,7 +3,7 @@
 if(this.value == null || this.value == ""){
     alert("请选择文件");
     return;
-}else if(!/.(gif|jpg|jpeg|png|gif|jpg|png)$/.test(this.value)){
+}else if(!/.(gif|jpg|jpeg|png|GIF|JPG|JPEG|PNG)$/.test(this.value)){
     alert("图片类型必须是.gif,jpeg,jpg,png中的一种");
     return;
 }
