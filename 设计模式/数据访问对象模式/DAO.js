@@ -124,3 +124,14 @@ BaseLocalStorage.prototype = {
 		callback && callback.call(this, status, status > 0 ? null : value.slice(value.indexOf(this.timeSign) + this.timeSign.length));
 	}
 }
+
+
+// const LS = new BaseLocalStorage('LS__');
+// set 默认时间一个月
+// LS.set('a', 'xiao ming', function (status, key, value) {
+//     console.log(arguments)
+// }, new Date().getTime() + 1000 * 60 * 60 * 24); // [0, "LS__a", "xiao ming"]
+// LS.get('a', function(){console.log(arguments)});    // [0, "xiao ming"]
+// LS.remove('a', function(){console.log(arguments)}); // [0, "xiao ming"]
+// LS.remove('a', function(){console.log(arguments)}); // [1, null]
+// LS.get('a', function(){console.log(arguments)});    // [1, null]
