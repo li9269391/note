@@ -15,16 +15,16 @@
 利用 node 中间层，在服务端处理 vue 组件，生成 DOM，详细见官网
 
 ###二、加载资源
-减少单个 JS 文件体积，拆包、懒加载（路由，组件），移除无用代码
-减少JS下载时间：预先解析 DNS、Preload、Prefetch
-加载优先级
-Service Worker 缓存静态资源
-使用 lazyload 和 placeholder 提升加载体验
+1. 减少单个 JS 文件体积，拆包、懒加载（路由，组件），移除无用代码
+2. 减少JS下载时间：预先解析 DNS、Preload、Prefetch
+3. 加载优先级
+4. Service Worker 缓存静态资源
+5. 使用 lazyload 和 placeholder 提升加载体验
 
 ###三、请求接口
-接口数据输出在 html 上
-接口数据合并
-接口数据请求，在加载 JS 之前发出
+1. 接口数据输出在 html 上
+2. 接口数据合并
+3. 接口数据请求，在加载 JS 之前发出
 
 ###四、执行脚本
 - JS 设置 defer 和 async，dns-prefetch
