@@ -96,8 +96,7 @@ workbox.precaching.precacheAndRoute(
     [
         // 注册成功后要立即缓存的资源列表，这些资源一般不存在“异步”的加载
         // 这里相当于，初始化的时候就有了第一个 router.registerRoute()，之后的就需要手动注册了
-        'https://static.cdnmama.com/van-mama-cn/bible/dist/vendor.css?v=1551161943',
-        'https://static.cdnmama.com/van-mama-cn/bible/dist/vendor.js?v=1551161943',
+        'https://test.cn/app.css?v=1.0',
         // 这里需要注意的是这个 revision 的值，当预缓存的文件就任何变动的时候就会被更新，
         // 如果 revision 没有更新，那当你更新 Service Worker 的时候，被缓存的文件也不会被更新。
         {
@@ -123,7 +122,7 @@ workbox.precaching.precacheAndRoute(
 从缓存取，同时请求网络，更新缓存，适合不同源 CDN
 ```javascript
 workbox.routing.registerRoute(
-    new RegExp('https://static.cdnmama.com/van-mama-cn/bible/.*\.(?:js|css)'),
+    new RegExp('https://test.cn/static/.*\.(?:js|css)'),
     workbox.strategies.staleWhileRevalidate({
         cacheName: 'static',
         plugins: [
@@ -139,7 +138,7 @@ workbox.routing.registerRoute(
 ```javascript
 workbox.routing.registerRoute(
     /\.(?:png|gif|jpg|jpeg|svg)$/,
-    // new RegExp('https://qimg.mama.cn/content/bible/.*\.(?:png|gif|jpg|jpeg|svg)'),
+    // new RegExp('https://img.test.cn/static/.*\.(?:png|gif|jpg|jpeg|svg)'),
     workbox.strategies.cacheFirst({
         cacheName: 'images',
         plugins: [
@@ -167,7 +166,7 @@ html 的缓存策略，防止断网兜底
 workbox.routing.registerRoute(
     /*function(event) {
         // 需要缓存的HTML路径列表
-        if (event.url.host === 'van.mama.cn') {
+        if (event.url.host === 'test.cn') {
             if (~cacheList.indexOf(event.url.pathname)) return true;
             else return false;
         } else {
