@@ -48,7 +48,7 @@ sw 和 workerBox 的关系就好比 javascript 和 jQuery；我们可以先了�
 ## 二、service-worker.js （安装、激活、监听）
 
 浏览器的一些错误捕捉
-```
+```javascript
 self.addEventListener('error', function(e) {
     self.clients.matchAll()
         .then(function (clients) {
@@ -63,7 +63,7 @@ self.addEventListener('error', function(e) {
 });
 ```
 
-```
+```javascript
 self.addEventListener('unhandledrejection', function(e) {
     self.clients.matchAll()
         .then(function (clients) {
@@ -79,7 +79,7 @@ self.addEventListener('unhandledrejection', function(e) {
 ```
 
 首先引入 workbox 框架，可以放到自己的 cdn 下
-```
+```javascript
 importScripts("https://g.alicdn.com/kg/workbox/3.3.0/workbox-sw.js");
 workbox.setConfig({
     // 默认情况下，localhost 站点，orkbox-sw 将使用调试版本，但对于任何其他源，它将使用生产版本
@@ -91,7 +91,7 @@ workbox.setConfig({
 ```
 
 根据自己的需求，定制缓存策略
-```
+```javascript
 workbox.precaching.precacheAndRoute(
     [
         // 注册成功后要立即缓存的资源列表，这些资源一般不存在“异步”的加载
@@ -121,7 +121,7 @@ workbox.precaching.precacheAndRoute(
 ```
 
 从缓存取，同时请求网络，更新缓存，适合不同源 CDN
-```
+```javascript
 workbox.routing.registerRoute(
     new RegExp('https://static.cdnmama.com/van-mama-cn/bible/.*\.(?:js|css)'),
     workbox.strategies.staleWhileRevalidate({
@@ -136,7 +136,7 @@ workbox.routing.registerRoute(
 ```
 
 有缓存后不再请求
-```
+```javascript
 workbox.routing.registerRoute(
     /\.(?:png|gif|jpg|jpeg|svg)$/,
     // new RegExp('https://qimg.mama.cn/content/bible/.*\.(?:png|gif|jpg|jpeg|svg)'),
@@ -153,7 +153,7 @@ workbox.routing.registerRoute(
 ```
 
 直接强制使用正常的网络请求，并将结果返回给客户端
-```
+```javascript
 workbox.routing.registerRoute(
     new RegExp('.*\.html'),
     workbox.strategies.networkOnly()
@@ -163,7 +163,7 @@ workbox.routing.registerRoute(
 html 的缓存策略，防止断网兜底
 如果你在页面上有一些动态信息（比如用户信息等等）， 配合一个合适的失败时间，毕竟大家都不希望用户登录了另一个账号，显示的还是上一个账号，这同样适用于那些使用 cookie（有状态）的请求，这些请求也推荐你添加失效策略，和失败状态。
 永远记住你的目标，让用户能够更快的看到页面，但不要给用户一个错误的页面。
-```
+```javascript
 workbox.routing.registerRoute(
     /*function(event) {
         // 需要缓存的HTML路径列表
