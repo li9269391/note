@@ -4,13 +4,18 @@ Service Worker（下文将 Service Worker 简称为 sw），通过库 workerBox 
 # Service Worker 是什么
 
 SW 是独立于当前页面的一段运行在浏览器后台进程里的脚本。可以拦截处理页面的网络请求（fetch），可以访问 cache 和 IndexDB。
+
 换言之 sw 可以让开发者自己控制管理缓存的内容以及版本，为离线弱网环境下的 web 的运行提供了可能， 是 PWA（Progressive Web App）中最重要的一部分。
+
 # workerBox 是什么
 sw 和 workerBox 的关系就好比 javascript 和 jQuery；我们可以先了解一下 workbox：
 
 不管你的站点是何种方式构建的，都可以为你的站点提供离线访问能力。
+
 就算你不考虑离线能力，也能让你的站点访问速度更加快。
+
 几乎不用考虑太多的具体实现，只用做一些配置。
+
 当你知道 sw 是什么之后，我会用 workerBox 来演示，实现缓存静态资源，当然它的能力远不止这一点，如果你被这些特性吸引住了，可以往下看看
 
 # 用法
@@ -160,8 +165,11 @@ workbox.routing.registerRoute(
 ```
 
 html 的缓存策略，防止断网兜底
+
 如果你在页面上有一些动态信息（比如用户信息等等）， 配合一个合适的失败时间，毕竟大家都不希望用户登录了另一个账号，显示的还是上一个账号，这同样适用于那些使用 cookie（有状态）的请求，这些请求也推荐你添加失效策略，和失败状态。
+
 永远记住你的目标，让用户能够更快的看到页面，但不要给用户一个错误的页面。
+
 ```javascript
 workbox.routing.registerRoute(
     /*function(event) {
@@ -225,11 +233,15 @@ Service Worker 实现缓存功能一般分为三个步骤：首先需要先注�
 
 ## 使用这一特性的网站
 https://ssr.vuejs.org/zh/
+
 https://www.taobao.com/
 
 ## 参考
 
 [Service Worker 初探](https://www.jianshu.com/p/0e2dee4c77bc "Service Worker 初探")
+
 [Service Worker 是什么？](https://www.jianshu.com/p/62338c038c42 "Service Worker 是什么？")
+
 [Workerbox 可以如此简单](https://github.com/GeoffZhu/geoffzhu.github.io/issues/14 "Workerbox 可以如此简单")
+
 [神奇的 Workbox](https://zoumiaojiang.com/article/amazing-workbox-3/ "神奇的 Workbox")
