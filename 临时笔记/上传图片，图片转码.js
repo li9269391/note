@@ -1,4 +1,6 @@
 // <input type="file" accept="image/gif,image/png,image/jpeg,image/jpg" />
+const file = e.target.files[0]
+const size = file.size / 1024
 
 if(this.value == null || this.value == ""){
     alert("请选择文件");
