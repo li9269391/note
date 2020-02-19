@@ -71,7 +71,7 @@ BaseLocalStorage.prototype = {
 				value : null
 			};
 			// 执行回调并返回
-			callback && callback.callee(this, result.status, result.value);
+			callback && callback.call(this, result.status, result.value);
 			return result;
 		};
 		if (value) {
