@@ -28,8 +28,8 @@
         * param str 源字符串
         * param n 要获取的字段名
         */
-        function getParam (str, n) {
-            let r = new RegExp(`[?&]${n}=([^&?]*)(\\s||$)`, 'gi')
+        function getParam(str, n) {
+            let r = new RegExp(`[?&]${n}=([^&?#]*)(\\s||$)`, 'gi')
             let r1 = new RegExp(n + '=', 'gi')
             let m = str.match(r)
             if (m === null) {
@@ -39,10 +39,10 @@
             }
         }
 
-        function replaceQueryParam (url, arg, val) {
+        function replaceQueryParam(url, arg, val) {
             let pattern = arg + '=([^&]*)';
             let replaceText = arg + '=' + val;
-            let re = new RegExp(`${arg}=([^&?]*)(\\s||$)`, 'gi');
+            let re = new RegExp(`${arg}=([^&?#]*)(\\s||$)`, 'gi');
             return url.match(pattern) ? url.replace(re, replaceText) : (url.match('[\?]') ? url + '&' + replaceText : url + '?' + replaceText);
         }
 
