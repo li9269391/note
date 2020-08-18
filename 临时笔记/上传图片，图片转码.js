@@ -2,11 +2,11 @@
 const file = e.target.files[0]
 const size = file.size / 1024
 
-if(this.value == null || this.value == ""){
+if(this.value === null || this.value === "" || this.value === undefined){
     alert("请选择文件");
     return;
-}else if(!/.(gif|jpg|jpeg|png|GIF|JPG|JPEG|PNG)$/.test(this.value)){
-    alert("图片类型必须是.gif,jpeg,jpg,png中的一种");
+}else if(!/image\//.test(file.type)){
+    alert("请上传图片，不支持其它文件！");
     return;
 }
 
