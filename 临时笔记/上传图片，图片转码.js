@@ -1,13 +1,15 @@
 // <input type="file" accept="image/gif,image/png,image/jpeg,image/jpg" />
-const file = e.target.files[0]
-const size = file.size / 1024
+onChange = function () {
+    const file = e.target.files[0]
+    const size = file.size / 1024
 
-if(this.value === null || this.value === "" || this.value === undefined){
-    alert("请选择文件");
-    return;
-}else if(!/image\//.test(file.type)){
-    alert("请上传图片，不支持其它文件！");
-    return;
+    if(this.value === null || this.value === "" || this.value === undefined){
+        alert("请选择文件");
+        return;
+    }else if(!/image\//.test(file.type)){
+        alert("请上传图片，不支持其它文件！");
+        return;
+    }
 }
 
 imgFn = {
