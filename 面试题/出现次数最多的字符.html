@@ -41,7 +41,7 @@
             arr.sort();
             str = arr.join("");
 
-            var re = /(\w)\1+/g;
+            var re = /(\w)\1+/g; // \1 对 $1的引用，\1+多个
             var max = 0;
             var max_value = "";
 
@@ -54,7 +54,8 @@
 
             return "max: " + max + " max_value: " + max_value;
         }
-        alert(max_key("abcdefgaddda"));	// max: 4 max_value: d
+        console.log(max_key("abcdefgaddda"));	// max: 4 max_value: d
+        console.log(max_key("abcd"));	// max: 0 max_value: ''
     </script>
 </head>
 <body>
