@@ -7,6 +7,87 @@
 </head>
 <body>
     <script>
+
+        /**
+         * 获取url中的参数
+         */
+        const getParams = (function(_global) {
+            return function(name) {
+                const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`, 'i');
+                let result = [];
+                if (_global.location.hash !== '') {
+                    result = _global.location.hash.split('?'); // 优先判别 hash
+                } else {
+                    result = _global.location.href.split('?');
+                }
+
+                if (result.length === 1) {
+                    result = _global.parent.location.hash.split('?');
+                }
+
+                if (result.length > 1) {
+                    const r = result[1].match(reg);
+                    if (r != null) {
+                        return decodeURIComponent(r[2]);
+                    }
+                }
+
+                return null;
+            };
+        })(window);
+
+        /**
+         * 设置参数
+         */
+        const setParams = (function(global) {
+            let _global = global;
+            const _originHref = _global.location.href.split('#')[0];
+            return function(name, value) {
+                if (!name) {
+                    return;
+                }
+
+                let obj = {};
+                if (typeof name === 'string') {
+                    obj = {
+                        [name]: value,
+                    };
+                }
+
+                if (Object.prototype.toString.call(name) === '[object Object]') {
+                    obj = name;
+                }
+
+                let hashArr = [];
+                if (_global.location.hash) {
+                    hashArr = _global.location.hash.split('?');
+                }
+
+                const paramArr = (hashArr[1] && hashArr[1].split('&')) || [];
+
+                let paramObj = {};
+                paramArr.forEach(val => {
+                    const tmpArr = val.split('=');
+                    paramObj[tmpArr[0]] = decodeURIComponent(tmpArr[1] || '');
+                });
+                paramObj = Object.assign({}, paramObj, obj);
+
+                const resArr =
+                  Object.keys(paramObj).map(key => `${key}=${encodeURIComponent(paramObj[key] || '')}`) || [];
+
+                hashArr[1] = resArr.join('&');
+                const hashStr = hashArr.join('?');
+                if (_global.history.replaceState) {
+                    const url = _originHref + hashStr;
+                    _global.history.replaceState(null, '', url);
+                } else {
+                    _global.location.hash = hashStr;
+                }
+            };
+        })(window);
+
+
+
         String.prototype.getParam = function(n){
             var r = new RegExp("[\?\&]"+n+"=([^&?]*)(\\s||$)", "gi");
             var r1=new RegExp(n+"=","gi");
