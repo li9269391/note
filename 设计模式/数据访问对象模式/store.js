@@ -1,6 +1,7 @@
 /**
  * 本地存储实现，优先本地存储localStorage，如果浏览器不支持，优雅降级为cookie
  * fork from https://github.com/marcuswestin/store.js
+ * 更强大的本地存储参考：https://github.com/localForage/localForage
  */
 
 'use strict';
